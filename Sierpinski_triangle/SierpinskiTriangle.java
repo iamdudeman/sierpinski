@@ -21,7 +21,7 @@ import javax.imageio.ImageIO;
 
 public class SierpinskiTriangle {
 	//The distance of each line to be drawn for the Sierpinski triangle
-	final int distance = 5;
+	final int distance = 3;
 	
 	//starts at A
 	String _sierpinski = "A";
@@ -139,16 +139,18 @@ public class SierpinskiTriangle {
 	 * @param filename The name of the png file created
 	 */
 	public void saveToPng(String filename){
-		//creating a buffered image of this size will capture a triangle size of up to 12 generations
-		BufferedImage bImg = new BufferedImage(21000, 18000, BufferedImage.TYPE_INT_RGB);
+		System.out.println("Save started");
+		
+		//creating a buffered image of this size will capture a triangle size of up to 12 and a distance of 3 generations
+		BufferedImage bImg = new BufferedImage(13000, 11000, BufferedImage.TYPE_INT_RGB);
 		//create the graphics
 		Graphics2D g = bImg.createGraphics();
 		//fill the background to be white
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, 21000, 18000);
+		g.fillRect(0, 0, 13000, 11000);
 		
 		//adjust it a bit to look nice
-		g.translate(10, 17950);
+		g.translate(10, 10950);
 		//draw the triangle
 		draw(g);
 		//write it out to a file
@@ -157,5 +159,7 @@ public class SierpinskiTriangle {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("Save complete");
 	}
 }
