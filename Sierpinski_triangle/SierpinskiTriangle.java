@@ -13,6 +13,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class SierpinskiTriangle {
 	//The distance of each line to be drawn for the Sierpinski triangle
@@ -23,6 +28,19 @@ public class SierpinskiTriangle {
 	StringBuilder _builder = new StringBuilder();
 	//cause Blue is nice
 	Color _color = Color.BLUE;
+	
+	public static void main(String[] args){
+		//create our SierpinskiTriangle object
+		SierpinskiTriangle myTriangle = new SierpinskiTriangle();
+		
+		//do 12 generations
+		for(int i = 0; i < 12; i++){
+			myTriangle.evolution();
+		}
+		
+		//save it to a png
+		myTriangle.saveToPng("./serpinski_triangle.png");
+	}
 	
 	/**
 	 * Each evolution makes a nicer Sierpinski triangle. At least 8 generations makes it look nice.
@@ -113,6 +131,31 @@ public class SierpinskiTriangle {
 				//set the current point to our next point
 				_current = new Point2D.Double(x, y);
 			}
+		}
+	}
+	
+	/**
+	 * Outputs the Sierpinski Triangle to a png file
+	 * @param filename The name of the png file created
+	 */
+	public void saveToPng(String filename){
+		//creating a buffered image of this size will capture a triangle size of up to 12 generations
+		BufferedImage bImg = new BufferedImage(21000, 18000, BufferedImage.TYPE_INT_RGB);
+		//create the graphics
+		Graphics2D g = bImg.createGraphics();
+		//fill the background to be white
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, 21000, 18000);
+		
+		//adjust it a bit to look nice
+		g.translate(10, 17950);
+		//draw the triangle
+		draw(g);
+		//write it out to a file
+		try {
+			ImageIO.write(bImg, "png", new File(filename));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
