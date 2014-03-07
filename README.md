@@ -1,4 +1,4 @@
-sierpinski
+Sierpinski Triangle
 ==========
 
 Author: Tim Solum
